@@ -1,61 +1,23 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import api from '@/plugins/axios';
 import { useFavoritesStore } from '@/stores/favorites.js';
-import Loading from 'vue-loading-overlay';
-import { useGenreStore } from '@/stores/genre.js';
 import { useRouter } from 'vue-router';
 
-const genres = ref([]);
-const movies = ref([]);
-const isLoading = ref(false);
-const genreStore = useGenreStore();
 const favoritesStore = useFavoritesStore();
 const router = useRouter();
 
-onMounted(async () => {
-    isLoading.value = true;
-    await genreStore.getAllGenres('movie');
-    genres.value = genreStore.genres;
-    isLoading.value = false;
-});
-
-const listMovies = async (genreId) => {
-    genreStore.setCurrentGenreId(genreId);
-    isLoading.value = true;
-    const response = await api.get('discover/movie', {
-        params: {
-            with_genres: genreId,
-            language: 'pt-BR',
-        },
-    });
-    movies.value = response.data.results;
-    isLoading.value = false;
-};
-
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
 const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { movieId } });
 </script>
 
 <template>
-    <h1>Filmes</h1>
-    <ul class="genre-list">
-        <li v-for="genre in genreStore.genres" :key="genre.id" @click="listMovies(genre.id)" class="genre-item"
-            :class="{ active: genre.id === genreStore.currentGenreId }">
-            {{ genre.name }}
-        </li>
-    </ul>
-    <loading v-model:active="isLoading" is-full-page />
+    <h1>Favoritos</h1>
     <div class="movie-list">
-        <div v-for="movie in movies" :key="movie.id" class="movie-card">
+        <div v-for="movie in favoritesStore.movies" :key="movie.id" class="movie-card">
             <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title"
                 @click="openMovie(movie.id)" />
             <div class="movie-details">
                 <p class="movie-title">{{ movie.title }}</p>
-                <p class="movie-release-date">{{ formatDate(movie.release_date) }}</p>
-                <button @click="favoritesStore.toggleFavorite(movie)">
-                    {{ favoritesStore.isFavorite(movie.id) ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos' }}
-                </button>
+                <p>{{ movie.release_date }}</p>
+                <button @click="favoritesStore.toggleFavorite(movie)">Remover dos Favoritos</button>
             </div>
         </div>
     </div>

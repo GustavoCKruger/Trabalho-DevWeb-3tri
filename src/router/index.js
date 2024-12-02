@@ -28,6 +28,12 @@ const routes = [
     component: () => import('../views/TvDetailsView.vue'),
     props: true,
   },
+  {
+    path: '/favoritos',
+    name: 'favorites',
+    component: () => import('../views/Favorites.vue'),
+    props: true,
+  },
 ]
 
 const router = createRouter({
