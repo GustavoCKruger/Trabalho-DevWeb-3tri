@@ -1,16 +1,24 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
-
+import { useFavoritesStore } from '@/stores/favorites.js';
+import Loading from 'vue-loading-overlay';
+import { useGenreStore } from '@/stores/genre.js';
+import { useRouter } from 'vue-router';
 
 const genres = ref([]);
+const tvs = ref([]);
+const isLoading = ref(false);
+const genreStore = useGenreStore();
+const favoritesStore = useFavoritesStore();
+const router = useRouter();
 
 onMounted(async () => {
-    const response = await api.get('genre/tv/list?language=pt-BR');
-    genres.value = response.data.genres;
+    isLoading.value = true;
+    await genreStore.getAllGenres('tv');
+    genres.value = genreStore.genres;
+    isLoading.value = false;
 });
-
-const tvs = ref([]);
 
 const listTvs = async (genreId) => {
     genreStore.setCurrentGenreId(genreId);
@@ -25,62 +33,32 @@ const listTvs = async (genreId) => {
     isLoading.value = false;
 };
 
-import Loading from 'vue-loading-overlay';
-
-const isLoading = ref(false);
-
-function getGenreName(id) {
-    const genero = genres.value.find((genre) => genre.id === id);
-    return genero.name;
-}
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-BR');
-
-import { useGenreStore } from '@/stores/genre.js';
-
-const genreStore = useGenreStore();
-
-onMounted(async () => {
-    isLoading.value = true;
-    await genreStore.getAllGenres('tv');
-    isLoading.value = false;
-});
-
-import { useRouter } from 'vue-router'
-const router = useRouter()
-
-function openTv(tvId) {
-    router.push({ name: 'TvDetails', params: { tvId } });
-}
+const formatDate = (date) => (date ? new Date(date).toLocaleDateString('pt-BR') : 'Data não disponível');
+const openTv = (tvId) => router.push({ name: 'TvDetails', params: { tvId } });
 </script>
 
 <template>
-    <h1>Programas de Tv</h1>
+    <h1>Programas de TV</h1>
     <ul class="genre-list">
         <li v-for="genre in genreStore.genres" :key="genre.id" @click="listTvs(genre.id)" class="genre-item"
             :class="{ active: genre.id === genreStore.currentGenreId }">
             {{ genre.name }}
         </li>
-
     </ul>
     <loading v-model:active="isLoading" is-full-page />
     <div class="movie-list">
         <div v-for="tv in tvs" :key="tv.id" class="movie-card">
-
-            <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.title" @click="openTv(tv.id)" />
+            <img :src="tv.poster_path ? `https://image.tmdb.org/t/p/w500${tv.poster_path}` : '/path/to/placeholder.jpg'"
+                :alt="tv.name" @click="openTv(tv.id)" />
             <div class="movie-details">
                 <p class="movie-title">{{ tv.original_name }}</p>
                 <p class="movie-release-date">{{ formatDate(tv.first_air_date) }}</p>
-                <p class="movie-genres">
-                    <span v-for="genre_id in tv.genre_ids" :key="genre_id" @click="listTvs(genre_id)"
-                        :class="{ active: genre_id === genreStore.currentGenreId }">
-                        {{ genreStore.getGenreName(genre_id) }}
-                    </span>
-                </p>
+                <button @click="favoritesStore.toggleFavorite(tv)">
+                    {{ favoritesStore.isFavorite(tv.id) ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos' }}
+                </button>
             </div>
-
         </div>
     </div>
-
 </template>
 
 <style scoped>
@@ -94,7 +72,7 @@ function openTv(tvId) {
 }
 
 .genre-item {
-    background-color: #387250;
+    background-color: rgb(220, 20, 60);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
@@ -102,14 +80,15 @@ function openTv(tvId) {
 
 .genre-item:hover {
     cursor: pointer;
-    background-color: #4e9e5f;
-    box-shadow: 0 0 0.5rem #387250;
+    background-color: rgb(210, 10, 30);
+    box-shadow: 0 0 0.5rem rgb(210, 10, 30);
 }
 
 .movie-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    margin-left: 10%;
 }
 
 .movie-card {
@@ -148,7 +127,7 @@ function openTv(tvId) {
 }
 
 .movie-genres span {
-    background-color: #748708;
+    background-color: rgb(210, 10, 30);
     border-radius: 0.5rem;
     padding: 0.2rem 0.5rem;
     color: #fff;
@@ -158,17 +137,17 @@ function openTv(tvId) {
 
 .movie-genres span:hover {
     cursor: pointer;
-    background-color: #455a08;
-    box-shadow: 0 0 0.5rem #748708;
+    background-color: rgb(210, 10, 30);
+    box-shadow: 0 0 0.5rem rgb(210, 10, 30);
 }
 
 .active {
-    background-color: #67b086;
+    background-color: rgb(210, 10, 30);
     font-weight: bolder;
 }
 
 .movie-genres span.active {
-    background-color: #abc322;
+    background-color: rgb(210, 10, 30);
     color: #000;
     font-weight: bolder;
 }

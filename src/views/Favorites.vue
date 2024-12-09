@@ -6,6 +6,7 @@ const favoritesStore = useFavoritesStore();
 const router = useRouter();
 
 const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { movieId } });
+const openTv = (tvId) => router.push({ name: 'TvDetails', params: { tvId } });
 </script>
 
 <template>
@@ -20,6 +21,15 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
                 <button @click="favoritesStore.toggleFavorite(movie)">Remover dos Favoritos</button>
             </div>
         </div>
+        <!-- <div v-for="tv in favoritesStore.tvs" :key="tv.id" class="movie-card">
+            <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" :alt="tv.original_name"
+                @click="openTv(tv.id)" />
+            <div class="movie-details">
+                <p class="movie-title">{{ tv.original_name }}</p>
+                <p>{{ tv.first_air_date }}</p>
+                <button @click="favoritesStore.toggleFavorite(tv)">Remover dos Favoritos</button>
+            </div>
+        </div> -->
     </div>
 </template>
 

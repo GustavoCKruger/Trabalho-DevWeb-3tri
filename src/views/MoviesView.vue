@@ -72,7 +72,7 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
 }
 
 .genre-item {
-    background-color: #387250;
+    background-color: rgb(220, 20, 60);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
     color: #fff;
@@ -80,14 +80,15 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
 
 .genre-item:hover {
     cursor: pointer;
-    background-color: #4e9e5f;
-    box-shadow: 0 0 0.5rem #387250;
+    background-color: rgb(210, 10, 30);
+    box-shadow: 0 0 0.5rem rgb(210, 10, 30);
 }
 
 .movie-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    margin-left: 10%;
 }
 
 .movie-card {
@@ -126,7 +127,7 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
 }
 
 .movie-genres span {
-    background-color: #748708;
+    background-color: rgb(210, 10, 30);
     border-radius: 0.5rem;
     padding: 0.2rem 0.5rem;
     color: #fff;
@@ -136,17 +137,17 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
 
 .movie-genres span:hover {
     cursor: pointer;
-    background-color: #455a08;
-    box-shadow: 0 0 0.5rem #748708;
+    background-color: rgb(210, 10, 30);
+    box-shadow: 0 0 0.5rem rgb(210, 10, 30);
 }
 
 .active {
-    background-color: #67b086;
+    background-color: rgb(210, 10, 30);
     font-weight: bolder;
 }
 
 .movie-genres span.active {
-    background-color: #abc322;
+    background-color: rgb(210, 10, 30);
     color: #000;
     font-weight: bolder;
 }
