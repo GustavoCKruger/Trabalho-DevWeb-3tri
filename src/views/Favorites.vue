@@ -34,92 +34,96 @@ const openTv = (tvId) => router.push({ name: 'TvDetails', params: { tvId } });
 </template>
 
 <style scoped>
-.genre-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    list-style: none;
+/* Título */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #34495e;
     margin-bottom: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
 }
 
-.genre-item {
-    background-color: #387250;
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-    color: #fff;
-}
-
-.genre-item:hover {
-    cursor: pointer;
-    background-color: #4e9e5f;
-    box-shadow: 0 0 0.5rem #387250;
-}
-
+/* Lista de Filmes Favoritos */
 .movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+    justify-items: center;
 }
 
+/* Cartão de Filme */
 .movie-card {
-    width: 15rem;
-    height: 30rem;
-    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.8rem;
     overflow: hidden;
-    box-shadow: 0 0 0.5rem #000;
+    width: 14rem;
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.movie-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem do Filme */
 .movie-card img {
     width: 100%;
     height: 20rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0.5rem #000;
+    object-fit: cover;
 }
 
+/* Detalhes do Filme */
 .movie-details {
-    padding: 0 0.5rem;
+    padding: 1rem;
+    text-align: center;
 }
 
 .movie-title {
     font-size: 1.1rem;
     font-weight: bold;
-    line-height: 1.3rem;
-    height: 3.2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.movie-genres {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.2rem;
+.movie-details p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 1rem;
 }
 
-.movie-genres span {
-    background-color: #748708;
-    border-radius: 0.5rem;
-    padding: 0.2rem 0.5rem;
+/* Botão */
+button {
+    background-color: #e74c3c;
     color: #fff;
-    font-size: 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
-}
-
-.movie-genres span:hover {
     cursor: pointer;
-    background-color: #455a08;
-    box-shadow: 0 0 0.5rem #748708;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.active {
-    background-color: #67b086;
-    font-weight: bolder;
+button:hover {
+    background-color: #c0392b;
+    box-shadow: 0 0.3rem 0.6rem rgba(231, 76, 60, 0.4);
 }
 
-.movie-genres span.active {
-    background-color: #abc322;
-    color: #000;
-    font-weight: bolder;
+/* Responsividade */
+@media (max-width: 768px) {
+    .movie-list {
+        gap: 1rem;
+    }
+
+    .movie-card {
+        width: 90%;
+    }
 }
 </style>

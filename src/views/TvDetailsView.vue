@@ -47,11 +47,99 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f4f6f8;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* Conteúdo Principal */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.content img {
+    width: 18rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+/* Detalhes do Filme */
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+}
+
+.details h1 {
+    font-size: 2rem;
+    color: #34495e;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.details p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+/* Empresas Produtoras */
 .companies {
     display: flex;
-    flex-direction: row;
-    column-gap: 3rem;
-    align-items: center;
-    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
 }
+
+.companies img {
+    width: 6rem;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.companies img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.companies p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #34495e;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content img {
+        width: 90%;
+    }
+
+    .details {
+        text-align: center;
+    }
+}
+
 </style>
