@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/favoritos',
     name: 'favorites',
-    component: () => import('../views/Favorites.vue'),
+    component: () => import('../views/FavoritesFilmes.vue'),
     props: true,
   },
 ]

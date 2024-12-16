@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import api from '@/plugins/axios';
-import { useFavoritesStore } from '@/stores/favorites.js';
+import { useFavoritesStore } from '@/stores/favoritesFilmes.js';
 import Loading from 'vue-loading-overlay';
 import { useGenreStore } from '@/stores/genre.js';
 import { useRouter } from 'vue-router';
@@ -62,7 +62,6 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
 </template>
 
 <style scoped>
-/* Gêneros */
 .genre-list {
     display: flex;
     justify-content: center;
@@ -97,7 +96,6 @@ const openMovie = (movieId) => router.push({ name: 'MovieDetails', params: { mov
     box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.4);
 }
 
-/* Filmes */
 .movie-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -161,7 +159,7 @@ button:hover {
     background-color: #ff4757;
     box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.4);
 }
-/* Responsividade */
+
 @media (max-width: 768px) {
     .genre-list {
         gap: 1rem;

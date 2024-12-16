@@ -57,7 +57,6 @@ onMounted(async () => {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
-/* Conteúdo Principal */
 .content {
     display: flex;
     flex-wrap: wrap;
@@ -72,7 +71,6 @@ onMounted(async () => {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
-/* Detalhes do Filme */
 .details {
     display: flex;
     flex-direction: column;
@@ -96,7 +94,6 @@ onMounted(async () => {
     margin-bottom: 0.8rem;
 }
 
-/* Empresas Produtoras */
 .companies {
     display: flex;
     flex-wrap: wrap;
@@ -126,7 +123,6 @@ onMounted(async () => {
     text-align: center;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
